@@ -1,10 +1,22 @@
 const {
-   addBookHandler,
    getAllBookHandler,
    getBookByIdHandler,
+} = require("./CRUD/handlerGET")
+
+const {
+   addBookHandler,
+} = require("./CRUD/handlerPOST");
+
+const {
    editBookByIdHandler,
+} = require("./CRUD/handlerPUT")
+
+
+const {
    deleteBookByIdHandler,
-} = require("./handler");
+} = require("./CRUD/handlerDELETE");
+
+
 
 const routes = [{
       method: 'POST',
