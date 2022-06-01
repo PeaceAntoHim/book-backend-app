@@ -61,8 +61,7 @@ const addBookHandler = (req, h) => {
 
    if (isSuccess) {
       // Bila buku berhasil dimasukkan
-      const response = h
-         .response({
+      const response = h.response({
             status: 'success',
             message: 'Buku berhasil ditambahkan',
             data: {
@@ -73,9 +72,8 @@ const addBookHandler = (req, h) => {
       return response;
    }
 
-   // Server gagal memasukkan buku karena alasan umum (generic error).
-   const response = h
-      .response({
+   // The server failed to load the book for a common reason (generic error).
+   const response = h.response({
          status: 'fail',
          message: 'Buku gagal ditambahkan',
       })
@@ -91,9 +89,8 @@ const getAllBookHandler = (req, h) => {
    } = req.query;
 
    if (!name && !reading && !finished) {
-      // kalau tidak ada query
-      const response = h
-         .response({
+      // If has any query
+      const response = h.response({
             status: 'success',
             data: {
                books: books.map((book) => ({
@@ -110,13 +107,12 @@ const getAllBookHandler = (req, h) => {
 
    if (name) {
       const filteredBooksName = books.filter((book) => {
-         // kalau ada query name
+         // if has query name
          const nameRegex = new RegExp(name, 'gi');
          return nameRegex.test(book.name);
       });
 
-      const response = h
-         .response({
+      const response = h.response({
             status: 'success',
             data: {
                books: filteredBooksName.map((book) => ({
@@ -132,13 +128,12 @@ const getAllBookHandler = (req, h) => {
    }
 
    if (reading) {
-      // kalau ada query reading
+      // if has query reading
       const filteredBooksReading = books.filter(
-         (book) => Number(book.reading) === Number(reading),
+         (book) => Number(book.reading) === Number(reading)
       );
 
-      const response = h
-         .response({
+      const response = h.response({
             status: 'success',
             data: {
                books: filteredBooksReading.map((book) => ({
@@ -153,13 +148,12 @@ const getAllBookHandler = (req, h) => {
       return response;
    }
 
-   // kalau ada query finished
+   // if has query finished
    const filteredBooksFinished = books.filter(
-      (book) => Number(book.finished) === Number(finished),
+      (book) => Number(book.finished) === Number(finished)
    );
 
-   const response = h
-      .response({
+   const response = h.response({
          status: 'success',
          data: {
             books: filteredBooksFinished.map((book) => ({
@@ -174,6 +168,7 @@ const getAllBookHandler = (req, h) => {
    return response;
 };
 
+// This will get the book by id
 const getBookByIdHandler = (req, h) => {
    const {
       bookId
@@ -182,9 +177,8 @@ const getBookByIdHandler = (req, h) => {
    const book = books.filter((n) => n.id === bookId)[0]; // find book by id
 
    if (book) {
-      // Bila buku dengan id yang dilampirkan ditemukan
-      const response = h
-         .response({
+      // When the book with attached id is found
+      const response = h.response({
             status: 'success',
             data: {
                book,
@@ -194,9 +188,8 @@ const getBookByIdHandler = (req, h) => {
       return response;
    }
 
-   // Bila buku dengan id yang dilampirkan oleh client tidak ditemukan
-   const response = h
-      .response({
+   // If the book with the ID attached by the client is not found
+   const response = h.response({
          status: 'fail',
          message: 'Buku tidak ditemukan',
       })
@@ -204,6 +197,7 @@ const getBookByIdHandler = (req, h) => {
    return response;
 };
 
+// This function to update or edit the value or data
 const editBookByIdHandler = (req, h) => {
    const {
       bookId
@@ -222,8 +216,7 @@ const editBookByIdHandler = (req, h) => {
 
    if (!name) {
       // Client does not attach name property to req body
-      const response = h
-         .response({
+      const response = h.response({
             status: 'fail',
             message: 'Gagal memperbarui buku. Mohon isi nama buku',
          })
@@ -262,9 +255,8 @@ const editBookByIdHandler = (req, h) => {
          updatedAt,
       };
 
-      // Bila buku berhasil diperbarui
-      const response = h
-         .response({
+      // If the book success diperbarui
+      const response = h.response({
             status: 'success',
             message: 'Buku berhasil diperbarui',
          })
@@ -272,9 +264,8 @@ const editBookByIdHandler = (req, h) => {
       return response;
    }
 
-   // id yang dilampirkan oleh client tidak ditemukkan oleh server
-   const response = h
-      .response({
+   // The id attached by the client was not found by the server
+   const response = h.response({
          status: 'fail',
          message: 'Gagal memperbarui buku. Id tidak ditemukan',
       })
@@ -282,6 +273,7 @@ const editBookByIdHandler = (req, h) => {
    return response;
 };
 
+// This function to deleted value of data
 const deleteBookByIdHandler = (req, h) => {
    const {
       bookId
@@ -292,9 +284,8 @@ const deleteBookByIdHandler = (req, h) => {
    if (index !== -1) {
       books.splice(index, 1);
 
-      // Bila id dimiliki oleh salah satu buku
-      const response = h
-         .response({
+      // If the id belongs to one of the books
+      const response = h.response({
             status: 'success',
             message: 'Buku berhasil dihapus',
          })
@@ -302,9 +293,8 @@ const deleteBookByIdHandler = (req, h) => {
       return response;
    }
 
-   // Bila id yang dilampirkan tidak dimiliki oleh buku manapun
-   const response = h
-      .response({
+   // If the attached id is not owned by any book
+   const response = h.response({
          status: 'fail',
          message: 'Buku gagal dihapus. Id tidak ditemukan',
       })
