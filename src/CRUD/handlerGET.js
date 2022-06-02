@@ -22,10 +22,7 @@ const getAllBookHandler = (req, h) => {
       });
       res.code(200);
       return res;
-   }
-
-
-   if (name) {
+   } else if (name) {
       const filteredBooksName = books.filter((book) => {
          // if has query name
          const nameRegex = new RegExp(name, 'gi');
@@ -44,9 +41,7 @@ const getAllBookHandler = (req, h) => {
       });
       res.code(200);
       return res;
-   }
-
-   if (reading) {
+   } else if (reading) {
       // if has query reading
       const filteredBooksReading = books.filter(
          (book) => Number(book.reading) === Number(reading)
@@ -64,14 +59,13 @@ const getAllBookHandler = (req, h) => {
       });
       res.code(200);
       return res;
-   }
+   } else {
+      // if has query finished
+      const filteredBooksFinished = books.filter(
+         (book) => Number(book.finished) === Number(finished)
+      );
 
-   // if has query finished
-   const filteredBooksFinished = books.filter(
-      (book) => Number(book.finished) === Number(finished)
-   );
-
-   const res = h.response({
+      const res = h.response({
          status: 'success',
          data: {
             books: filteredBooksFinished.map((book) => ({
@@ -80,9 +74,12 @@ const getAllBookHandler = (req, h) => {
                publisher: book.publisher,
             })),
          },
-      })
-      .code(200);
-   return res;
+      });
+      res.code(200);
+      return res;
+   }
+
+
 };
 
 // This will get the book by id

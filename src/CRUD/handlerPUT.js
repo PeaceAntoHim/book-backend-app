@@ -26,9 +26,7 @@ const editBookByIdHandler = (req, h) => {
       });
       res.code(400);
       return res;
-   }
-
-   if (readPage > pageCount) {
+   } else if (readPage > pageCount) {
       // The client attaches the value of the readPage property which is greater than the value of the pageCount property
       const res = h
          .response({
@@ -66,7 +64,7 @@ const editBookByIdHandler = (req, h) => {
       });
       res.code(200);
       return res;
-   };
+   }
 
    // The id attached by the client was not found by the server
    const res = h.response({
