@@ -66,18 +66,18 @@ const editBookByIdHandler = (req, h) => {
       });
       res.code(200);
       return res;
-   }
+   };
 
    // The id attached by the client was not found by the server
    const res = h.response({
-         status: 'fail',
-         message: 'Gagal memperbarui buku. Id tidak ditemukan',
-      })
-      .code(404);
+      status: 'fail',
+      message: 'Gagal memperbarui buku. Id tidak ditemukan',
+   });
+   res.code(404);
    return res;
 };
 
 
 module.exports = {
    editBookByIdHandler,
-}
+};

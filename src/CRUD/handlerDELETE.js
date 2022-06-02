@@ -22,10 +22,10 @@ const deleteBookByIdHandler = (req, h) => {
 
    // If the attached id is not owned by any book
    const res = h.response({
-         status: 'fail',
-         message: 'Buku gagal dihapus. Id tidak ditemukan',
-      })
-      .code(404);
+      status: 'fail',
+      message: 'Buku gagal dihapus. Id tidak ditemukan',
+   });
+   res.code(404);
    return res;
 };
 

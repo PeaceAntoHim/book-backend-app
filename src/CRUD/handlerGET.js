@@ -24,6 +24,7 @@ const getAllBookHandler = (req, h) => {
       return res;
    }
 
+
    if (name) {
       const filteredBooksName = books.filter((book) => {
          // if has query name
@@ -42,7 +43,6 @@ const getAllBookHandler = (req, h) => {
          },
       });
       res.code(200);
-
       return res;
    }
 
@@ -63,7 +63,6 @@ const getAllBookHandler = (req, h) => {
          },
       });
       res.code(200);
-
       return res;
    }
 
@@ -83,7 +82,6 @@ const getAllBookHandler = (req, h) => {
          },
       })
       .code(200);
-
    return res;
 };
 
@@ -109,10 +107,10 @@ const getBookByIdHandler = (req, h) => {
 
    // If the book with the ID attached by the client is not found
    const res = h.response({
-         status: 'fail',
-         message: 'Buku tidak ditemukan',
-      })
-      .code(404);
+      status: 'fail',
+      message: 'Buku tidak ditemukan',
+   });
+   res.code(404);
    return res;
 };
 
